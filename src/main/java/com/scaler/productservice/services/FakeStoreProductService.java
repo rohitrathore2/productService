@@ -1,10 +1,15 @@
 package com.scaler.productservice.services;
+import com.scaler.productservice.dtos.CreateProductRequestDto;
+import com.scaler.productservice.dtos.FakeStoreCreateProductDto;
 import com.scaler.productservice.models.Category;
 import org.springframework.web.client.RestTemplate;
 import com.scaler.productservice.dtos.FakeStoreProductDto;
 import com.scaler.productservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -23,18 +28,36 @@ public class FakeStoreProductService implements ProductService{
                         ("https://fakestoreapi.com/products/" + id,
                         FakeStoreProductDto.class);
 //        System.out.println("Hello Rohit");
-        Product product = new Product();
-        product.setId(responseDto.getId());
-        product.setTitle(responseDto.getTitle());
-        product.setDescription(responseDto.getDescription());
-        product.setPrice(Double.parseDouble(responseDto.getPrice()));
-        product.setImageURL(responseDto.getImage());
 
-        Category category = new Category();
-        category.setName(responseDto.getCategory());
+        return responseDto.toProduct();
+    }
 
-        product.setCategory(category);
+    @Override
+    public Product createProduct(String title, String description, String image, double price, String category) {
+        FakeStoreCreateProductDto requestDto = new FakeStoreCreateProductDto();
+        requestDto.setTitle(title);
+        requestDto.setDescription(description);
+        requestDto.setImage(image);
+        requestDto.setPrice(price);
+        requestDto.setCategory(category);
 
-        return product;
+        FakeStoreProductDto responseDto = restTemplate.postForObject
+                ("https://fakestoreapi.com/products",
+                requestDto, FakeStoreProductDto.class);
+
+        return responseDto.toProduct();
+    }
+
+    @Override
+    public List<Product> getAllProducts() {
+        FakeStoreProductDto[] responseDto =
+                restTemplate.getForObject("https://fakestoreapi.com/products",
+                        FakeStoreProductDto[].class);
+
+        List<Product> products = new ArrayList<>();
+        for(FakeStoreProductDto dto : responseDto){
+            products.add(dto.toProduct());
+        }
+        return products;
     }
 }
