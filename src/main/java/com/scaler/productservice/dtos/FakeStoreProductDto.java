@@ -15,19 +15,19 @@ public class FakeStoreProductDto {
     private String description;
     private String image;
 
-    public Product toProduct(){
-        Product product = new Product();
-        product.setId(getId());
-        product.setTitle(getTitle());
-        product.setDescription(getDescription());
-        product.setPrice(Double.parseDouble(getPrice()));
-        product.setImageURL(getImage());
-
-        Category category = new Category();
-        category.setName(getCategory());
-
-        product.setCategory(category);
-
-        return product;
-    }
+//    public Product toProduct(){
+//        Product product = new Product();
+//        product.setId(getId());
+//        product.setTitle(getTitle());
+//        product.setDescription(getDescription());
+//        product.setPrice(Double.parseDouble(getPrice()));
+//        product.setImageURL(getImage());
+//
+//        Category category = new Category();
+//        category.setName(getCategory());
+//
+//        product.setCategory(category);
+//
+//        return product;
+//    }
 }

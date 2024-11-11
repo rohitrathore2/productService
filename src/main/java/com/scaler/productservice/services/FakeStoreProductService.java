@@ -1,6 +1,6 @@
 package com.scaler.productservice.services;
-
-import com.scaler.productservice.configurations.RestTemplate;
+import com.scaler.productservice.models.Category;
+import org.springframework.web.client.RestTemplate;
 import com.scaler.productservice.dtos.FakeStoreProductDto;
 import com.scaler.productservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,21 @@ public class FakeStoreProductService implements ProductService{
     public Product getProductDetails(Long id) {
         FakeStoreProductDto responseDto =
                 restTemplate.getForObject
-                        ("https://fakestoreapi.com/products" + id,
+                        ("https://fakestoreapi.com/products/" + id,
                         FakeStoreProductDto.class);
 //        System.out.println("Hello Rohit");
-        return null;
+        Product product = new Product();
+        product.setId(responseDto.getId());
+        product.setTitle(responseDto.getTitle());
+        product.setDescription(responseDto.getDescription());
+        product.setPrice(Double.parseDouble(responseDto.getPrice()));
+        product.setImageURL(responseDto.getImage());
+
+        Category category = new Category();
+        category.setName(responseDto.getCategory());
+
+        product.setCategory(category);
+
+        return product;
     }
 }
