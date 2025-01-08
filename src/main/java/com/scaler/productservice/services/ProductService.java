@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ProductService {
     public Product getSingleProduct(Long id);
-    public Product createProduct(String title, String description, String image, double price, String category);
+   // public Product createProduct(String title, String description, String image, double price, String category);
+    public Product addNewProduct(Product product);
     public List<Product> getAllProducts();
 
     public Product updateProduct(Long id, Product product);

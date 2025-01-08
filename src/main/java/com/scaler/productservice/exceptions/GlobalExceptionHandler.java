@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     // 2. generic exception :- Runtime exception
     public ResponseEntity<ErrorResponse> handleRuntime(RuntimeException ex){
         ErrorResponse error = new ErrorResponse(
-                HttpStatus.NO_CONTENT.value(),
+                HttpStatus.NOT_FOUND.value(),
                 ex.getMessage(),
                 LocalDateTime.now()
         );

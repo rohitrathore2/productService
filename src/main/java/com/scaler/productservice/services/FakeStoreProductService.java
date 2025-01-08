@@ -1,5 +1,6 @@
 package com.scaler.productservice.services;
 import com.scaler.productservice.dtos.FakeStoreCreateProductDto;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 import com.scaler.productservice.dtos.FakeStoreProductDto;
 import com.scaler.productservice.models.Product;
@@ -30,21 +31,38 @@ public class FakeStoreProductService implements ProductService{
         return responseDto.toProduct();
     }
 
-    @Override
-    public Product createProduct(String title, String description, String image, double price, String category) {
-        FakeStoreCreateProductDto requestDto = new FakeStoreCreateProductDto();
-        requestDto.setTitle(title);
-        requestDto.setDescription(description);
-        requestDto.setImage(image);
-        requestDto.setPrice(price);
-        requestDto.setCategory(category);
-
-        FakeStoreProductDto responseDto = restTemplate.postForObject
-                ("https://fakestoreapi.com/products",
-                requestDto, FakeStoreProductDto.class);
-
-        return responseDto.toProduct();
-    }
+//    @Override
+//    public Product addNewProduct(String title, String description, String image, double price, String category) {
+//        FakeStoreCreateProductDto requestDto = new FakeStoreCreateProductDto();
+//        requestDto.setTitle(title);
+//        requestDto.setDescription(description);
+//        requestDto.setImage(image);
+//        requestDto.setPrice(price);
+//        requestDto.setCategory(category);
+//
+//        FakeStoreProductDto responseDto = restTemplate.postForObject
+//                ("https://fakestoreapi.com/products",
+//                requestDto, FakeStoreProductDto.class);
+//
+//        return responseDto.toProduct();
+//    }
+    //--------
+@Override
+public Product addNewProduct(@RequestBody Product product) {
+//    FakeStoreCreateProductDto requestDto = new FakeStoreCreateProductDto();
+//    requestDto.setTitle(title);
+//    requestDto.setDescription(description);
+//    requestDto.setImage(image);
+//    requestDto.setPrice(price);
+//    requestDto.setCategory(category);
+//
+//    FakeStoreProductDto responseDto = restTemplate.postForObject
+//            ("https://fakestoreapi.com/products",
+//                    requestDto, FakeStoreProductDto.class);
+//
+//    return responseDto.toProduct();
+    return null;
+}
 
     @Override
     public List<Product> getAllProducts() {

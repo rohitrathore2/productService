@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/products")
 public class ProductController {
 
     private ProductService productService;
@@ -18,40 +19,43 @@ public class ProductController {
     }
 
     // get all products
-    @GetMapping("/products")
+    @GetMapping
     public List<Product> getAllProducts(){
 
         return productService.getAllProducts();
     }
 
     // get product by id
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public Product getProductDetails(@PathVariable("id") Long id){
 
         return productService.getSingleProduct(id);
     }
 
     // create product
-    @PostMapping("/products")
-    public Product createProduct(@RequestBody CreateProductRequestDto requestDto){
-        return productService.createProduct(
-                requestDto.getTitle(),
-            requestDto.getDescription(),
-            requestDto.getImage(),
-            requestDto.getPrice(),
-            requestDto.getCategory()
-        );
+    @PostMapping
+    public  Product createProduct(@RequestBody Product product){
+        return productService.addNewProduct(product);
     }
+//    public Product createProduct(@RequestBody CreateProductRequestDto requestDto){
+//        return productService.createProduct(
+//                requestDto.getTitle(),
+//            requestDto.getDescription(),
+//            requestDto.getImage(),
+//            requestDto.getPrice(),
+//            requestDto.getCategory()
+//        );
+//    }
 
     // update product
-    @PutMapping
+    @PutMapping("/{id}")
     public Product updateProduct(@PathVariable Long id, @RequestBody Product product){
         return productService.updateProduct(id, product);
     }
 
     // delete product
-    @DeleteMapping
-    public void deleteProduct(@PathVariable Long id){
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") Long id){
         productService.deleteProduct(id);
     }
 }
