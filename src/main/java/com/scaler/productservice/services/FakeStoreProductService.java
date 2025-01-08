@@ -1,7 +1,5 @@
 package com.scaler.productservice.services;
-import com.scaler.productservice.dtos.CreateProductRequestDto;
 import com.scaler.productservice.dtos.FakeStoreCreateProductDto;
-import com.scaler.productservice.models.Category;
 import org.springframework.web.client.RestTemplate;
 import com.scaler.productservice.dtos.FakeStoreProductDto;
 import com.scaler.productservice.models.Product;
@@ -11,8 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Service
+//@Primary
+@Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService{
 
     @Autowired
@@ -22,7 +20,7 @@ public class FakeStoreProductService implements ProductService{
         this.restTemplate = restTemplate;
     }
 
-    public Product getProductDetails(Long id) {
+    public Product getSingleProduct(Long id) {
         FakeStoreProductDto responseDto =
                 restTemplate.getForObject
                         ("https://fakestoreapi.com/products/" + id,
@@ -59,5 +57,18 @@ public class FakeStoreProductService implements ProductService{
             products.add(dto.toProduct());
         }
         return products;
+    }
+
+    @Override
+    public Product updateProduct(Long id, Product product) {
+        return null;
+    }
+
+
+
+
+    @Override
+    public void deleteProduct(Long id) {
+
     }
 }
